@@ -1,4 +1,4 @@
-// SportsCode Heatmap Scripts for USA 7s
+// SportsCode Heatmap Scripts for 7s
 
 // get team name and event name for title
 $team = button name "teamname"
