@@ -1,0 +1,253 @@
+// SportsCode Heatmap Scripts for USA 7s
+
+// get team name and event name for title
+$team = button name "teamname"
+$event = button name "eventName"
+$name = $team + " " + $event + " Heatmap"
+rename $name
+
+// #################################################
+
+// Legend
+stat01 = count "Field Pos".$this_button where row = "EVENT ROW NAME"
+
+$legend_index = $stat01 
+if (legend_index > 10, $legend_index = 10)
+if (legend_index <= 0, button opacity 0, button opacity 100)
+if (legend_index <= 0, exit)
+$legend_title = "Legend" + $legend_index
+button color $legend_title
+
+show "Field Pos".$this_button where row = "EVENT ROW NAME"
+
+// ##################################################
+
+// Field Zone code - code goes in every field zone
+// New code for field zones - 12/15/17
+
+// get team name and event name
+$team = button name "teamname"
+$event = button name "eventName"
+$eventTeam = $event + " " + $team
+
+$stat01 = count $this_button where row = $eventTeam
+
+// count total KOs
+$statTotal = count instances where row = $eventTeam
+
+// calculate percentage
+$zonePercent = round ($stat01 / $statTotal  * 100,0) 
+show $zonePercent + "%" + " (" + $stat01 + "/" + $statTotal + ")"
+
+$legend_index = 0
+
+if ($zonePercent = 0, show "")
+
+if ($zonePercent > 0 AND $zonePercent <= 10, $legend_index=1)
+
+if ($zonePercent >= 11 AND $zonePercent <= 20, $legend_index=2)
+
+if ($zonePercent >= 21 AND $zonePercent <= 30, $legend_index = 3)
+
+if ($zonePercent >= 31 AND $zonePercent <= 50, $legend_index = 4)	
+
+if ($zonePercent >= 51 AND $zonePercent <= 70, $legend_index = 5)
+
+if ($zonePercent >= 71 AND $zonePercent <= 90, $legend_index = 6)
+
+if ($zonePercent >= 91 AND $zonePercent <= 100, $legend_index = 7)
+
+
+// If legend index is zero or less, make it transparent, else if greater than zero, make opacity 80 (with color fill)
+if ($legend_index = 0, button opacity 0, button opacity 80)
+
+// if the legend index is less than zero, exit the script for this button
+if ($legend_index <= 0, exit)
+
+// concantenate to make the legend_title "Legend10", for example
+$legend_title = "Legend" + $legend_index
+button color $legend_title
+
+show $this_button where row = $eventTeam
+
+// ##############################################
+
+// Stacked KO formation
+// New code - 12/15/17
+
+// get team name and event name
+$team = button name "teamname"
+$event = button name "eventName"
+$eventTeam = $event + " " + $team
+
+// count number of KO instances
+$stat01 = count instances where row = $eventTeam
+
+// count number of Stacked labels
+$stat02 = count label "STACK" where row = $eventTeam
+
+// calculate percentage
+$pct = round ($stat02 / $stat01  * 100,1) 
+
+show $pct + "%" + " (" + $stat02 + "/" + $stat01 + ")"
+
+show $this_button where row = $eventTeam
+
+// ##############################################
+
+// Split KO formation
+// New code - 12/15/17
+
+// get team name and event name
+$team = button name "teamname"
+$event = button name "eventName"
+$eventTeam = $event + " " + $team
+
+// count number of KO instances
+$stat01 = count instances where row = $eventTeam
+
+// count number of Stacked labels
+$stat02 = count label "SPLIT" where row = $eventTeam
+
+// calculate percentage
+$pct = round ($stat02 / $stat01  * 100,1) 
+
+show $pct + "%" + " (" + $stat02 + "/" + $stat01 + ")"
+
+show $this_button where row = $eventTeam
+
+// ##############################################
+
+// Select Team and hold value in Button
+
+//if ($this_button state = 1, $event1 = "KO") 
+
+//New code for heatmap team toggle
+
+if (button #"arg1" state = 1, rename "ARG")
+if (button #"arg1" state = 1, button color (37,67,98,100))
+if (button #"arg1" state = 1, text color (0,0,0,100))
+
+if (button #"aus1" state = 1, rename "AUS")
+if (button #"aus1" state = 1, button color (97,98,30,100))
+if (button #"aus1" state = 1, text color (0,0,0,100))
+
+if (button #"can1" state = 1, rename "CAN")
+if (button #"can1" state = 1, button color (99,20,19,100))
+if (button #"can1" state = 1, text color (100,100,100,100))
+
+if (button #"eng1" state = 1, rename "ENG")
+if (button #"eng1" state = 1, button color (98,45,15,100))
+if (button #"eng1" state = 1, text color (0,0,0,100))
+
+if (button #"kenya1" state = 1, rename "KEN")
+if (button #"kenya1" state = 1, button color (0,0,0,100))
+if (button #"kenya1" state = 1, text color (100,100,100,100))
+
+if (button #"fiji1" state = 1, rename "FIJ")
+if (button #"fiji1" state = 1, button color (100,100,100,100))
+if (button #"fiji1" state = 1, text color (0,0,0,100))
+
+if (button #"france1" state = 1, rename "FRA")
+if (button #"france1" state = 1, button color (29,36,98,100))
+if (button #"france1" state = 1, text color (0,0,0,100))
+
+if (button #"nzl1" state = 1, rename "NZL")
+if (button #"nzl1" state = 1, button color (25,25,25,100))
+if (button #"nzl1" state = 1, text color (100,100,100,100))
+
+if (button #"por1" state = 1, rename "POR")
+if (button #"por1" state = 1, button color (98,5,11,100))
+if (button #"por1" state = 1, text color (0,0,0,100))
+
+if (button #"russia1" state = 1, rename "RUS")
+if (button #"russia1" state = 1, button color (84,38,98,100))
+if (button #"russia1" state = 1, text color (0,0,0,100))
+
+if (button #"samoa1" state = 1, rename "SAM")
+if (button #"samoa1" state = 1, button color (42,38,64,100))
+if (button #"samoa1" state = 1, text color (100,100,100,100))
+
+if (button #"scot1" state = 1, rename "SCO")
+if (button #"scot1" state = 1, button color (5,5,47,100))
+if (button #"scot1" state = 1, text color (100,100,100,100))
+
+if (button #"rsa1" state = 1, rename "RSA")
+if (button #"rsa1" state = 1, button color (4,40,7,100))
+if (button #"rsa1" state = 1, text color (100,100,100,100))
+
+if (button #"spain1" state = 1, rename "SPA")
+if (button #"spain1" state = 1, button color (99,29,30,100))
+if (button #"spain1" state = 1, text color (0,0,0,100))
+
+if (button #"tonga1" state = 1, rename "TON")
+if (button #"tonga1" state = 1, button color (98,51,51,100))
+if (button #"tonga1" state = 1, text color (0,0,0,100))
+
+if (button #"us1" state = 1, rename "USA")
+if (button #"us1" state = 1, button color (4,4,47,100))
+if (button #"us1" state = 1, text color (100,100,100,100))
+
+if (button #"uruguay1" state = 1, rename "URG")
+if (button #"uruguay1" state = 1, button color (66,96,100,100))
+if (button #"uruguay1" state = 1, text color (0,0,0,100))
+
+if (button #"wales1" state = 1, rename "WAL")
+if (button #"wales1" state = 1, button color (69,2,6,100))
+if (button #"wales1" state = 1, text color (100,100,100,100))
+
+if (button #"zim1" state = 1, rename "ZIM")
+if (button #"zim1" state = 1, button color (10,69,35,100))
+if (button #"zim1" state = 1, text color (0,0,0,100))
+
+// Non-Core Teams
+
+if (button #"tunisia1" state = 1, rename "TUN")
+if (button #"tunisia1" state = 1, button color (91,80,99,100))
+if (button #"tunisia1" state = 1, text color (100,100,100,100))
+
+if (button #"cht1" state = 1, rename "CHT")
+if (button #"cht1" state = 1, button color (20,0,54,100))
+if (button #"cht1" state = 1, text color (100,100,100,100))
+
+if (button #"jap1" state = 1, rename "JAP")
+if (button #"jap1" state = 1, button color (40,7,2,100))
+if (button #"jap1" state = 1, text color (100,100,100,100))
+
+if (button #"geo1" state = 1, rename "GEO")
+if (button #"geo1" state = 1, button color (99,0,13,100))
+if (button #"geo1" state = 1, text color (0,0,0,100))
+
+if (button #"bra1" state = 1, rename "BRA")
+if (button #"bra1" state = 1, button color (97,100,49,100))
+if (button #"bra1" state = 1, text color (0,0,0,100))
+
+if (button #"jam1" state = 1, rename "JAM")
+if (button #"jam1" state = 1, button color (96,100,27,100))
+if (button #"jam1" state = 1, text color (0,0,0,100))
+
+if (button #"cil1" state = 1, rename "CIL")
+if (button #"cil1" state = 1, button color (7,77,54,100))
+if (button #"cil1" state = 1, text color (0,0,0,100))
+
+if (button #"mex1" state = 1, rename "MEX")
+if (button #"mex1" state = 1, button color (2,40,28,100))
+if (button #"mex1" state = 1, text color (100,100,100,100))
+
+if (button #"hk1" state = 1, rename "HKG")
+if (button #"hk1" state = 1, button color (22,0,39,100))
+if (button #"hk1" state = 1, text color (100,100,100,100))
+
+if (button #"phi1" state = 1, rename "PHI")
+if (button #"phi1" state = 1, button color (22,0,42,100))
+if (button #"phi1" state = 1, text color (100,100,100,100))
+
+// ########################################################
+
+// Select match event (KO, Scrum, Lineout, Pen/FK)
+
+if (button #"eventKO" state = 1, rename "KO")
+if (button #"eventScrum" state = 1, rename "SCRUM")
+if (button #"eventLO" state = 1, rename "LO")
+if (button #"eventPen" state = 1, rename "PEN/FK PLAY")
+
